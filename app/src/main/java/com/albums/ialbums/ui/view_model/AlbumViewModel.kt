@@ -5,18 +5,24 @@ import androidx.lifecycle.viewModelScope
 import com.albums.ialbums.data.model.Album
 import com.albums.ialbums.data.repository.IAlbumRepository
 import com.albums.ialbums.utils.Resource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 
 class AlbumViewModel (var repository: IAlbumRepository) : ViewModel() {
 
-    var _albumList = MutableStateFlow<Resource<ArrayList<Album>>>(Resource.any())
-    val albumList: StateFlow<Resource<ArrayList<Album>>>
+    var _albumList = MutableStateFlow<Resource<List<Album>>>(Resource.any())
+    val albumList: StateFlow<Resource<List<Album>>>
         get() = _albumList
 
-
+    /**
+     *
+     */
     fun getRemoteAlbumList(url: String) {
         viewModelScope.launch {
             repository.getAlbumList(url).collect {
@@ -25,5 +31,35 @@ class AlbumViewModel (var repository: IAlbumRepository) : ViewModel() {
             }
         }
     }
+
+    /**
+     *
+     */
+
+    fun insertRoomAlbum(item : Album) {
+        println("insertRoomAlbum================")
+        viewModelScope.launch{
+            println(item)
+            repository.insertRoomAlbum(item)
+        }
+    }
+
+    /**
+     *
+     */
+
+
+    fun getRoomAlbumList() {
+        println("getRoomAlbumList======================")
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.getRoomAlbumList().collect {
+                println("it ---> "+it)
+                //_albumList.value = it
+            }
+        }
+    }
+
+
+
 
 }

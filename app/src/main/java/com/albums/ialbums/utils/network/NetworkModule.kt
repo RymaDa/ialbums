@@ -2,8 +2,10 @@ package com.albums.ialbums.utils.network
 
 
 import com.albums.ialbums.data.api.ApiService
+import com.albums.ialbums.data.room.database.AlbumDatabase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -30,5 +32,7 @@ val networkModule = module {
 
 
     single { get<Retrofit>().create(ApiService::class.java) }
+    single { AlbumDatabase(androidApplication()) }
+
 
 }

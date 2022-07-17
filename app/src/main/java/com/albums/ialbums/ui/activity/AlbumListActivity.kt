@@ -2,11 +2,12 @@ package com.albums.ialbums.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.albums.ialbums.R
+import com.albums.ialbums.data.model.Album
 import com.albums.ialbums.ui.view_model.AlbumViewModel
 import com.albums.ialbums.utils.Constants.Companion.ALBUM_LIST_URL
+import com.albums.ialbums.utils.NetworkCheckUtils.Companion.isNetworkConnected
 import com.albums.ialbums.utils.Resource
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.getViewModel
@@ -36,19 +37,44 @@ class AlbumListActivity : AppCompatActivity() {
                         Resource.Status.SUCCESS -> {
                             println("SUCCESS---------------------------")
                             println(it.data)
+                            updateLocalDatabase((it.data as? ArrayList<Album>) ?: ArrayList())
                         }
                         Resource.Status.ERROR -> {
-
+                            vm.getRoomAlbumList()
                         }
                         else -> {
-
                         }
                     }
                 }
             }
         }
     }
+
+    /**
+     * update Room database
+     * @param data  remote data
+     */
+    private fun updateLocalDatabase(data: ArrayList<Album>) {
+        for (item in data){
+            vm.insertRoomAlbum(item)
+        }
+    }
+
+    /**
+     *Fetch data
+     *if the internet connection is activated => Fetch data from server
+     *if album list from server is empty => Fetch data from room
+     *if the internet connection is disabled => Fetch data from room
+     */
     private fun fetchData() {
-        vm.getRemoteAlbumList(ALBUM_LIST_URL)
+        if (isNetworkConnected(this)){
+            println("INTERNET")
+            vm.getRemoteAlbumList(ALBUM_LIST_URL)
+        }else{
+            vm.getRoomAlbumList()
+            println("NO INTERNET")
+        }
+
+
     }
 }
