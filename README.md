@@ -1,10 +1,11 @@
 # ialbums
-###List of albums
+### List of albums
 
-###In this project, we are using :
+### In this project, we are using :
 MVVM (Model View ViewModel) for architectural patterns, 
 Room for database, 
 Coroutines and RecyclerView to display the list of items.
 
+![My image](ttps://imgur.com/a/l4Qryp4)
 
 <img src="https://imgur.com/a/l4Qryp4" width="300">
