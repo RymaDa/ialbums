@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">iAlbums</string>
+    <string name="empty_data">Liste vide</string>
 </resources>

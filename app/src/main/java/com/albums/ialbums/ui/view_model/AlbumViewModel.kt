@@ -54,7 +54,7 @@ class AlbumViewModel (var repository: IAlbumRepository) : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             repository.getRoomAlbumList().collect {
                 println("it ---> "+it)
-                //_albumList.value = it
+                _albumList.value = it
             }
         }
     }

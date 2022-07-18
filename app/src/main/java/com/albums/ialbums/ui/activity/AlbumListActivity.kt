@@ -2,6 +2,7 @@ package com.albums.ialbums.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.albums.ialbums.R
 import com.albums.ialbums.data.model.Album
@@ -9,6 +10,7 @@ import com.albums.ialbums.ui.view_model.AlbumViewModel
 import com.albums.ialbums.utils.Constants.Companion.ALBUM_LIST_URL
 import com.albums.ialbums.utils.NetworkCheckUtils.Companion.isNetworkConnected
 import com.albums.ialbums.utils.Resource
+import kotlinx.android.synthetic.main.activity_album_list.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.getViewModel
 
@@ -35,8 +37,7 @@ class AlbumListActivity : AppCompatActivity() {
                         Resource.Status.LOADING -> {
                         }
                         Resource.Status.SUCCESS -> {
-                            println("SUCCESS---------------------------")
-                            println(it.data)
+                            updateUI((it.data as? ArrayList<Album>) ?: ArrayList())
                             updateLocalDatabase((it.data as? ArrayList<Album>) ?: ArrayList())
                         }
                         Resource.Status.ERROR -> {
@@ -48,6 +49,22 @@ class AlbumListActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+
+    private fun updateUI(data: ArrayList<Album>) {
+        if (data.size>0){
+            empty_data_tv.visibility = View.GONE
+            activity_album_list_srl.visibility = View.VISIBLE
+            initRecyclerView()
+        }else{
+            empty_data_tv.visibility = View.VISIBLE
+            activity_album_list_srl.visibility = View.GONE
+        }
+    }
+
+    private fun initRecyclerView() {
+
     }
 
     /**
