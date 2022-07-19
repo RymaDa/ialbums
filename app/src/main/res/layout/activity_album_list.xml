@@ -55,24 +55,33 @@
             android:drawableTint="@color/logo_red"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-            android:id="@+id/empty_data_tv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/empty_data"
-            style="@style/Empty_Data"/>
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/activity_album_list_srl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/activity_album_list_rv"
+            android:layout_height="match_parent">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                tools:listitem="@layout/activity_album_list"/>
+                android:layout_height="wrap_content"
+                tools:ignore="Orientation">
+                <TextView
+                    android:id="@+id/empty_data_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/empty_data"
+                    style="@style/Empty_Data"
+                    android:visibility="visible"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/activity_album_list_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:visibility="gone"
+                    tools:listitem="@layout/layout_item_album"/>
+            </LinearLayout>
+
+
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

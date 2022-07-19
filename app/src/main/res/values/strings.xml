@@ -4,4 +4,7 @@
     <string name="search_label">Chercher par : num d\'album ou titre d\'album</string>
     <string name="subtitle_app">La liste de titres d\'albums</string>
     <string name="loading_data">Traitement en cours .....</string>
+    <string name="no_internet_title">Connectez-vous à Internet</string>
+    <string name="no_internet_msg"> Vous n\'êtes pas connecté. Vérifiez votre connexion.</string>
 </resources>
+

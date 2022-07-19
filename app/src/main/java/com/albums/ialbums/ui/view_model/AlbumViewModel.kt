@@ -37,8 +37,8 @@ class AlbumViewModel (var repository: IAlbumRepository) : ViewModel() {
      */
 
     fun insertRoomAlbum(item : Album) {
-        println("insertRoomAlbum================")
         viewModelScope.launch{
+            println("insertRoomAlbum================")
             println(item)
             repository.insertRoomAlbum(item)
         }
@@ -54,6 +54,7 @@ class AlbumViewModel (var repository: IAlbumRepository) : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             repository.getRoomAlbumList().collect {
                 println("it ---> "+it)
+                println("it ---> "+it.data)
                 _albumList.value = it
             }
         }

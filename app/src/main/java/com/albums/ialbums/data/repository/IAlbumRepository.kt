@@ -1,6 +1,8 @@
 package com.albums.ialbums.data.repository
 
+import android.annotation.SuppressLint
 import android.content.Context
+import androidx.lifecycle.map
 import com.albums.ialbums.data.api.ApiService
 import com.albums.ialbums.data.model.Album
 import com.albums.ialbums.data.room.database.AlbumDatabase
@@ -13,7 +15,7 @@ import kotlinx.coroutines.flow.flow
 interface IAlbumRepository {
     suspend fun getAlbumList(url: String) : Flow<Resource<List<Album>>>
     suspend fun getRoomAlbumList() : Flow<Resource<List<Album>>>
-    suspend fun insertRoomAlbum(item: Album): Flow<Resource<Album>>
+    suspend fun insertRoomAlbum(item: Album)
 }
 
 class AlbumRepository(
@@ -44,13 +46,18 @@ class AlbumRepository(
      * Get list of albums from room
      * @return Album list flow
      */
+    @SuppressLint("CheckResult")
     override suspend fun getRoomAlbumList(): Flow<Resource<List<Album>>> = flow{
         emit(Resource.loading())
         try{
-            val A = db.getAlbumDao().getAllAlbumItems()
-            print("getRoomAlbumList=================")
-            println("A --> "+A)
-            emit(Resource.success(A ))
+            println("get room data ")
+            val a = db.getAlbumDao().getAllAlbumItems()
+            a?.map {
+                println("ite -> "+it)
+            }
+            println("a --> "+a)
+
+            emit(Resource.success(a))
         } catch (err: Exception) {
             emit(Resource.error(err.message.toString(), null))
         }
@@ -62,13 +69,14 @@ class AlbumRepository(
      * @return flow
      */
 
-    override suspend fun insertRoomAlbum(item:Album): Flow<Resource<Album>> = flow{
-        emit(Resource.loading())
+    override suspend fun insertRoomAlbum(item:Album){
+
         try{
+            println("INSERT================")
             db.getAlbumDao().insert(item)
-            emit(Resource.success(item))
+
         } catch (err: Exception) {
-            emit(Resource.error(err.message.toString(), null))
+            println("SIZE ----->" + err.message.toString())
         }
     }
 

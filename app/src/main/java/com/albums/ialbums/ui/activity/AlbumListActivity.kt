@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.albums.ialbums.R
@@ -18,8 +19,8 @@ import dmax.dialog.SpotsDialog
 import kotlinx.android.synthetic.main.activity_album_list.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.getViewModel
-
-
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 
 class AlbumListActivity : AppCompatActivity() {
@@ -105,14 +106,18 @@ class AlbumListActivity : AppCompatActivity() {
     private fun updateUI(data: ArrayList<Album>) {
         if (data.size>0){
             empty_data_tv.visibility = View.GONE
-            activity_album_list_srl.visibility = View.VISIBLE
+            activity_album_list_rv.visibility = View.VISIBLE
             initRecyclerView((vm._albumList.value.data as? ArrayList<Album>) ?: ArrayList())
         }else{
             empty_data_tv.visibility = View.VISIBLE
-            activity_album_list_srl.visibility = View.GONE
+            activity_album_list_rv.visibility = View.GONE
         }
     }
 
+    /**
+     * setup recyclerView component 
+     * @param data : album list
+     */
     private fun initRecyclerView(data : ArrayList<Album>) {
         val linearLayoutManager = LinearLayoutManager(this)
         activity_album_list_rv.layoutManager = linearLayoutManager
@@ -124,8 +129,10 @@ class AlbumListActivity : AppCompatActivity() {
      * @param data  remote data
      */
     private fun updateLocalDatabase(data: ArrayList<Album>) {
-        for (item in data){
-            vm.insertRoomAlbum(item)
+        if (isNetworkConnected(this)){
+            for (item in data){
+                vm.insertRoomAlbum(item)
+            }
         }
     }
 
@@ -140,10 +147,26 @@ class AlbumListActivity : AppCompatActivity() {
             println("INTERNET")
             vm.getRemoteAlbumList(ALBUM_LIST_URL)
         }else{
+            showToastBar(this.getString(R.string.no_internet_title), this.getString(R.string.no_internet_msg))
             vm.getRoomAlbumList()
             println("NO INTERNET")
         }
 
 
+    }
+
+    /**
+     * display toast bar
+     * @param title : title of toast
+     * @param msg : body of toast
+     */
+    private fun showToastBar(title: String, msg: String) {
+        MotionToast.createColorToast(this,
+            title,
+            msg,
+            MotionToastStyle.NO_INTERNET,
+            MotionToast.GRAVITY_TOP,
+            MotionToast.LONG_DURATION,
+            ResourcesCompat.getFont(this,R.font.poppins))
     }
 }

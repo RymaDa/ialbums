@@ -89,8 +89,13 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
 
-    //progress bar
+    //  Progress bar
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
+
+
+    //  Toat bar
+    implementation 'com.github.Spikeysanju:MotionToast:1.4'
+
 
 
 
