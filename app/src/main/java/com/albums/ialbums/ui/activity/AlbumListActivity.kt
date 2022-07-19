@@ -14,6 +14,7 @@ import com.albums.ialbums.ui.view_model.AlbumViewModel
 import com.albums.ialbums.utils.Constants.Companion.ALBUM_LIST_URL
 import com.albums.ialbums.utils.NetworkCheckUtils.Companion.isNetworkConnected
 import com.albums.ialbums.utils.Resource
+import dmax.dialog.SpotsDialog
 import kotlinx.android.synthetic.main.activity_album_list.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.getViewModel
@@ -25,6 +26,8 @@ class AlbumListActivity : AppCompatActivity() {
 
     private val vm: AlbumViewModel
         get() = getViewModel()
+
+    private lateinit var progressDialog: android.app.AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +61,11 @@ class AlbumListActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
+        progressDialog = SpotsDialog
+            .Builder()
+            .setContext(this)
+            .setMessage(R.string.loading_data)
+            .build()
         activity_album_list_srl.setOnRefreshListener {
             fetchData()
         }
@@ -69,18 +77,22 @@ class AlbumListActivity : AppCompatActivity() {
             vm._albumList.collect {
                 it.let { resource ->
                     when (resource.status) {
-
-                        Resource.Status.LOADING -> {}
+                        Resource.Status.LOADING -> {
+                            progressDialog.show()
+                        }
                         Resource.Status.SUCCESS -> {
                             updateUI((it.data as? ArrayList<Album>) ?: ArrayList())
                             updateLocalDatabase((it.data as? ArrayList<Album>) ?: ArrayList())
                             activity_album_list_srl.isRefreshing = false
+                            progressDialog.dismiss()
                         }
                         Resource.Status.ERROR -> {
+                            progressDialog.dismiss()
                             vm.getRoomAlbumList()
                             activity_album_list_srl.isRefreshing = false
                         }
                         else -> {
+                            progressDialog.dismiss()
                             activity_album_list_srl.isRefreshing = false
                         }
                     }

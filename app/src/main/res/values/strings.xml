@@ -3,4 +3,5 @@
     <string name="empty_data">Liste vide</string>
     <string name="search_label">Chercher par : num d\'album ou titre d\'album</string>
     <string name="subtitle_app">La liste de titres d\'albums</string>
+    <string name="loading_data">Traitement en cours .....</string>
 </resources>
