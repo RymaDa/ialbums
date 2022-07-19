@@ -6,7 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.AlbumListActivity"
     android:orientation="vertical">
-        <TextView
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/activity_album_list_srl_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:hint="@string/search_label"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textColorHint="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/poppins_bold"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_editText"
+            android:layout_width="match_parent"
+            android:fontFamily="@font/poppins"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:enabled="true"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:background="@color/white"
+            android:drawableRight="@drawable/ic_baseline_manage_search_24"
+            android:drawableTint="@color/logo_red"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
             android:id="@+id/empty_data_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -23,8 +54,6 @@
                 android:id="@+id/activity_album_list_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                />
-                <!--tools:listitem="@layout/layout_client_item"-->
+                android:background="@color/white" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">iAlbums</string>
     <string name="empty_data">Liste vide</string>
+    <string name="search_label">Chercher par : num d\'album ou titre d\'album</string>
 </resources>

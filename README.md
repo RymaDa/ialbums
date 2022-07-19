@@ -6,7 +6,7 @@ This is simple albums app that follows MVVM architectural design pattern and use
 
 __MVVM__ - MVVM stands for Model, View, ViewModel. MVVM is one of the architectural patterns which enhances separation of concerns, it allows separating the user interface logic from the business (or the back-end) logic. Its target is to achieve the following principle “Keeping UI code simple and free of app logic in order to make it easier to manage”.
 
-![mvvm_architecture](https://github.com/RymaDa/ialbums/tree/main/app/src/main/res/drawable/album_architecture.png)
+![mvvm_architecture](https://github.com/RymaDa/ialbums/tree/main/app/src/main/res/drawable-v24/album_architecture.png)
 
 
 ## Android Jetpack components:-

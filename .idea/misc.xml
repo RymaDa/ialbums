@@ -5,7 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/card_details_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/icon_active_background.xml" value="0.1305" />
-        <entry key="app/src/main/res/layout/activity_album_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_album_list.xml" value="0.335" />
         <entry key="app/src/main/res/layout/layout_item_album.xml" value="0.22533111572265627" />
       </map>
     </option>
