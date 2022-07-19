@@ -6,8 +6,7 @@ This is simple albums app that follows MVVM architectural design pattern and use
 
 __MVVM__ - MVVM stands for Model, View, ViewModel. MVVM is one of the architectural patterns which enhances separation of concerns, it allows separating the user interface logic from the business (or the back-end) logic. Its target is to achieve the following principle “Keeping UI code simple and free of app logic in order to make it easier to manage”.
 
-
-![mvvm_architecture](https://github.com/RymaDa/ialbums/tree/main/app/src/main/res/drawable-v24/album_architecture.png)
+![mvvm_architecture](https://github.com/RymaDa/ialbums/tree/main/app/src/main/res/drawable/album_architecture.png)
 
 
 ## Android Jetpack components:-
@@ -20,5 +19,7 @@ __MVVM__ - MVVM stands for Model, View, ViewModel. MVVM is one of the architectu
 4. __LiveData__ - It notifies views of any database changes. Use LiveData to build data objects that notify views when the underlying database changes.
 
 5. __Koin__ - A pragmatic lightweight dependency injection framework for Kotlin developers.
+   
+6. __Glide__ -  supports fetching, decoding, and displaying video stills, images, and animated GIFs.
 
-5. __Kotlin__ - Kotlin is a modern statically typed programming language used by over 60% of professional Android developers that helps boost productivity, developer satisfaction, and code safety.
+7. __Kotlin__ - Kotlin is a modern statically typed programming language used by over 60% of professional Android developers that helps boost productivity, developer satisfaction, and code safety.

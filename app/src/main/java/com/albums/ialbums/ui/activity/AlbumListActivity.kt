@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.albums.ialbums.R
 import com.albums.ialbums.data.model.Album
+import com.albums.ialbums.ui.adapter.AlbumItemAdapter
 import com.albums.ialbums.ui.view_model.AlbumViewModel
 import com.albums.ialbums.utils.Constants.Companion.ALBUM_LIST_URL
 import com.albums.ialbums.utils.NetworkCheckUtils.Companion.isNetworkConnected
@@ -64,7 +66,9 @@ class AlbumListActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-
+        val linearLayoutManager = LinearLayoutManager(this)
+        activity_album_list_rv.layoutManager = linearLayoutManager
+        activity_album_list_rv.adapter = AlbumItemAdapter(this, (vm._albumList.value.data as? ArrayList<Album>) ?: ArrayList())
     }
 
     /**

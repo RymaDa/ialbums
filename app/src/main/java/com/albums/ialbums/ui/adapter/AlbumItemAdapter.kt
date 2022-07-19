@@ -1,14 +1,20 @@
 package com.albums.ialbums.ui.adapter
 
 import android.content.Context
-import android.text.Html
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.albums.ialbums.R
 import com.albums.ialbums.data.model.Album
 import com.albums.ialbums.ui.activity.AlbumListActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 
 
 class AlbumItemAdapter(var context: Context,
@@ -18,7 +24,9 @@ class AlbumItemAdapter(var context: Context,
 
     class RowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
 
-        //val name: TextView = itemView.findViewById(R.id.item_client_name)
+        val image: ImageView = itemView.findViewById(R.id.album_item_adapter_img)
+        val category: TextView = itemView.findViewById(R.id.album_item_adapter_categ)
+        val title: TextView = itemView.findViewById(R.id.album_item_adapter_title)
 
 
     }
@@ -45,9 +53,20 @@ class AlbumItemAdapter(var context: Context,
     }
 
 
-    private fun prepareData(holder: RowViewHolder,  client: Album) {
+    private fun prepareData(holder: RowViewHolder,  item: Album) {
 
-       // holder.name.text = if (client.clientName != null) Html.fromHtml("<b><font color='black'>Nom Client : </font></b>"+(client.clientName ?: "-")) else  "-"
+        holder.title.text = item.title
+        holder.category.text = "Album n° "+ item.albumId.toString()
+        val url = GlideUrl(
+            item.url, LazyHeaders.Builder()
+                .addHeader("User-Agent", "your-user-agent")
+                .build()
+        )
+        Glide.with(context)
+            .load(url)
+            .placeholder(ColorDrawable(Color.GRAY))
+            .centerCrop()
+            .into(holder.image)
     }
     private fun setupEvent(holder: AlbumItemAdapter.RowViewHolder, client: Album) {
         holder.itemView.setOnClickListener {
